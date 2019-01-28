@@ -74,7 +74,7 @@ RUN DEBIAN_FRONTEND=noninteractive bash -c "until \
   python \
   python-dev \
   python-passlib \
-  qpdf;
+  qpdf \
   rabbitmq-server \
   redis-server \
   rsync \
@@ -160,7 +160,7 @@ RUN DEBIAN_FRONTEND=noninteractive bash -c "until \
   unzip \
   wget \
   zlib1g-dev \
-  do sleep 5; done;
+  ; do sleep 5; done; \
   apt-get -q -y install -t stretch-backports libreoffice \
   ; wget http://http.us.debian.org/debian/pool/main/m/mod-wsgi/libapache2-mod-wsgi_4.3.0-1_amd64.deb \
   && dpkg -i libapache2-mod-wsgi_4.3.0-1_amd64.deb \
