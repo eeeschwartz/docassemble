@@ -2,7 +2,7 @@ FROM debian:stretch
 
 RUN DEBIAN_FRONTEND=noninteractive bash -c 'echo -e "deb http://deb.debian.org/debian stretch main contrib \n\
 deb http://deb.debian.org/debian stretch-updates main \n\
-deb http://security.debian.org/debian-security stretch/updates main \n
+deb http://security.debian.org/debian-security stretch/updates main \n\
 deb http://ftp.debian.org/debian stretch-backports main" > /etc/apt/sources.list \
 && apt-get -y update'
 
