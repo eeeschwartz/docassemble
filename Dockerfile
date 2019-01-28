@@ -245,8 +245,8 @@ USER www-data
 RUN bash -c "cd /tmp \
   && virtualenv /usr/share/docassemble/local \
   && source /usr/share/docassemble/local/bin/activate \
-  && pip install --upgrade pip
-  && pip install
+  && pip install --upgrade pip \
+  && pip install \
     3to2 \
     bcrypt \
     distutils2 \
