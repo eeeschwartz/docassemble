@@ -242,7 +242,29 @@ RUN DEBIAN_FRONTEND=noninteractive TERM=xterm ln -s /var/mail/mail /var/mail/roo
 
 USER www-data
 
-RUN bash -c "cd /tmp && virtualenv /usr/share/docassemble/local && source /usr/share/docassemble/local/bin/activate && pip install --upgrade pip && pip install 3to2 bcrypt flask flask-login flask-mail flask-sqlalchemy flask-wtf distutils2 passlib pycryptodome && pip install --upgrade 'git+https://github.com/nekstrom/pyrtf-ng#egg=pyrtf-ng' 'git+https://github.com/euske/pdfminer.git' simplekv==0.10.0 /tmp/docassemble/docassemble /tmp/docassemble/docassemble_base /tmp/docassemble/docassemble_demo /tmp/docassemble/docassemble_webapp"
+RUN bash -c "cd /tmp \
+  && virtualenv /usr/share/docassemble/local \
+  && source /usr/share/docassemble/local/bin/activate \
+  && pip install --upgrade pip
+  && pip install
+    3to2 \
+    bcrypt \
+    distutils2 \
+    flask \
+    flask-login \
+    flask-mail \
+    flask-sqlalchemy \
+    flask-wtf \
+    passlib \
+    pycryptodome \
+  && pip install --upgrade \
+    'git+https://github.com/nekstrom/pyrtf-ng#egg=pyrtf-ng' \
+    'git+https://github.com/euske/pdfminer.git' \
+    simplekv==0.10.0 \
+    /tmp/docassemble/docassemble \
+    /tmp/docassemble/docassemble_base \
+    /tmp/docassemble/docassemble_demo \
+    /tmp/docassemble/docassemble_webapp"
 
 USER root
 RUN rm -rf /tmp/docassemble && rm -f /etc/cron.daily/apt-compat && sed -i -e 's/^\(daemonize\s*\)yes\s*$/\1no/g' -e 's/^bind 127.0.0.1/bind 0.0.0.0/g' /etc/redis/redis.conf && sed -i -e 's/#APACHE_ULIMIT_MAX_FILES/APACHE_ULIMIT_MAX_FILES/' -e 's/ulimit -n 65536/ulimit -n 8192/' /etc/apache2/envvars && echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen && locale-gen && update-locale LANG=en_US.UTF-8 && a2dismod ssl; a2enmod wsgi; a2enmod rewrite; a2enmod xsendfile; a2enmod proxy; a2enmod proxy_http; a2enmod proxy_wstunnel; a2enmod headers; a2enconf docassemble; echo 'export TERM=xterm' >> /etc/bash.bashrc
